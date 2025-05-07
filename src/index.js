@@ -11,6 +11,8 @@ import ErrorPage from "./pages/ErrorPage";
 import { Provider } from "react-redux";
 import store from "./state";
 import SignIn from "./pages/signin";
+import { Navigate } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const AddPost = React.lazy(() => import("./pages/Add"));
 const EditPost = React.lazy(() => import("./pages/Edit"));
@@ -29,15 +31,31 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Index /> },
-      { path: "post", element: <Index /> },
+      {
+        index: true,
+        element: <Navigate to={"/login"}></Navigate>,
+      },
       { path: "login", element: <SignIn /> },
+
+      {
+        path: "posts",
+
+        element: (
+          <ProtectedRoute>
+            <Index />
+          </ProtectedRoute>
+        ),
+      },
       {
         path: "post/add",
         element: (
-          <Suspense fallback="<div>Loading...</div>">
-            <AddPost />
-          </Suspense>
+          
+            <ProtectedRoute>
+              <Suspense>
+              <AddPost />
+              </Suspense>
+            </ProtectedRoute>
+            
         ),
       },
       {

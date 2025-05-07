@@ -1,5 +1,6 @@
 import React from "react";
 
+import { useSelector } from "react-redux";
 import {
   Container,
   Row,
@@ -8,13 +9,14 @@ import {
 
 import Header from "../components/Header";
 import { Outlet } from "react-router-dom";
-import User from "../components/User";
+
 
 const  RootLayout = () => {
+  const {isLoggedIn}=useSelector(state=>state.auth);
   return (
     <Container>
     <Header />
-    <User/>
+
     <Row>
       <Col xs={{ span: 8, offset: 2 }}>
          <Outlet/>

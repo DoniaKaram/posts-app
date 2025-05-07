@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../state/authSlice";
+import { login } from "../state/authSlice";
 
 const Login = () => {
   const [username, setUserName] = useState("");
@@ -23,7 +24,8 @@ const Login = () => {
            if(result.payload){
                setUserName('');
                setPassword('');
-               navigate('/');
+               dispatch(login())
+               navigate('/posts',{replace:true});
            }
     });
   };
