@@ -13,6 +13,9 @@ import store from "./state";
 import SignIn from "./pages/signin";
 import { Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SignUp from "./pages/Signup";
+import PostList from "./components/PostList";
+import Posts from "./pages/Posts";
 
 const AddPost = React.lazy(() => import("./pages/Add"));
 const EditPost = React.lazy(() => import("./pages/Edit"));
@@ -33,29 +36,30 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to={"/login"}></Navigate>,
-      },
-      { path: "login", element: <SignIn /> },
-
-      {
-        path: "posts",
-
         element: (
           <ProtectedRoute>
             <Index />
           </ProtectedRoute>
         ),
       },
+      { path: "login", element: <SignIn /> },
+      { path: "register", element: <SignUp /> },
+      {
+        path: "posts",
+        element: (
+          <ProtectedRoute>
+            <Posts />
+          </ProtectedRoute>
+        ),
+      },
       {
         path: "post/add",
         element: (
-          
-            <ProtectedRoute>
-              <Suspense>
+          <ProtectedRoute>
+            <Suspense>
               <AddPost />
-              </Suspense>
-            </ProtectedRoute>
-            
+            </Suspense>
+          </ProtectedRoute>
         ),
       },
       {
@@ -66,18 +70,6 @@ const router = createBrowserRouter([
           </Suspense>
         ),
         loader: postparamHandler,
-      },
-      {
-        path: "post/:id",
-        element: <Details />,
-        loader: ({ params }) => {
-          if (isNaN(params.id)) {
-            throw new Response("Bad Request", {
-              statusText: "please make sure to insert request id",
-              status: 400,
-            });
-          }
-        },
       },
     ],
   },

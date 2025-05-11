@@ -30,7 +30,9 @@ const Header = () => {
         <li>
           <NavLink to="post/add">Add Post</NavLink>
         </li>
-       
+        <li>
+          <NavLink to="posts">Posts</NavLink>
+        </li>
         
       </ul>
     </div>

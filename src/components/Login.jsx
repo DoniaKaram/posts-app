@@ -25,7 +25,7 @@ const Login = () => {
                setUserName('');
                setPassword('');
                dispatch(login())
-               navigate('/posts',{replace:true});
+               navigate('/dashboard',{replace:true});
            }
     });
   };
